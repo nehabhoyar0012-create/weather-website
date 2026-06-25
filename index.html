@@ -1,101 +1,182 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Weather Website</title>
-    <style>
-        body{
-            font-family: Arial, sans-serif;
-            text-align:center;
-            background: linear-gradient(to bottom, #87CEEB, #ffffff);
-            padding-top:50px;
-        }
+<title>Weather Dashboard</title>
 
-        .card{
-            background:white;
-            width:300px;
-            margin:auto;
-            padding:20px;
-            border-radius:15px;
-            box-shadow:0 0 10px gray;
-        }
+<style>
+body{
+    font-family: Arial, sans-serif;
+    text-align:center;
+    padding-top:50px;
+    transition:0.5s;
+    background:linear-gradient(to bottom,#FFD700,#87CEEB);
+}
 
-        button{
-            padding:10px 20px;
-            font-size:16px;
-            border:none;
-            border-radius:8px;
-            cursor:pointer;
-            margin-top:15px;
-        }
-    </style>
+.card{
+    background:white;
+    width:320px;
+    margin:auto;
+    padding:20px;
+    border-radius:20px;
+    box-shadow:0 0 15px gray;
+}
+
+button{
+    padding:10px 20px;
+    margin:10px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+h1{
+    color:white;
+}
+</style>
+
 </head>
+
 <body>
 
-<h1>🌦 Weather Website</h1>
+<h1>🌦 Weather Dashboard</h1>
+
+<p id="date"></p>
 
 <div class="card">
-    <h2 id="city">Nagpur</h2>
-    <h3 id="temp">32°C</h3>
-    <p id="humidity">Humidity: 65%</p>
-    <p id="condition">☀ Sunny</p>
 
-    <button onclick="nextCity()">Next ➡</button>
+<h2 id="city">Nagpur</h2>
+
+<h3 id="temp">32°C</h3>
+
+<p id="humidity">Humidity: 65%</p>
+
+<p id="condition">☀ Sunny</p>
+
+<p id="tip">Perfect day for outdoor activities!</p>
+
+<button onclick="previousCity()">⬅ Previous</button>
+
+<button onclick="nextCity()">Next ➡</button>
+
 </div>
 
 <script>
 
+document.getElementById("date").innerHTML =
+new Date().toDateString();
+
 const weatherData = [
+
 {
 city:"Nagpur",
 temp:"32°C",
 humidity:"65%",
-condition:"☀ Sunny"
+condition:"☀ Sunny",
+tip:"Perfect day for outdoor activities!"
 },
+
 {
 city:"Mumbai",
 temp:"29°C",
 humidity:"80%",
-condition:"☁ Cloudy"
+condition:"☁ Cloudy",
+tip:"Great weather for a walk!"
 },
+
 {
 city:"Pune",
 temp:"27°C",
 humidity:"70%",
-condition:"🌦 Rainy"
+condition:"🌧 Rainy",
+tip:"Don't forget your umbrella!"
 },
+
 {
 city:"Delhi",
 temp:"35°C",
 humidity:"55%",
-condition:"☀ Hot"
+condition:"🔥 Hot",
+tip:"Drink plenty of water!"
 },
+
 {
 city:"Bangalore",
 temp:"25°C",
 humidity:"75%",
-condition:"☁ Pleasant"
+condition:"🌤 Pleasant",
+tip:"Enjoy the pleasant weather!"
 },
+
 {
 city:"Goa",
 temp:"30°C",
 humidity:"78%",
-condition:"🌴 Humid"
+condition:"🌴 Humid",
+tip:"Beach time!"
 }
+
+];
+
+const backgrounds = [
+
+"linear-gradient(to bottom,#FFD700,#87CEEB)",
+
+"linear-gradient(to bottom,#B0C4DE,#E6E6FA)",
+
+"linear-gradient(to bottom,#708090,#C0C0C0)",
+
+"linear-gradient(to bottom,#FF8C00,#FFDAB9)",
+
+"linear-gradient(to bottom,#87CEFA,#FFFFFF)",
+
+"linear-gradient(to bottom,#40E0D0,#98FB98)"
+
 ];
 
 let index = 0;
 
-function nextCity() {
-    index++;
-    
-    if(index >= weatherData.length){
-        index = 0;
-    }
+function updateWeather(){
 
-    document.getElementById("city").innerText = weatherData[index].city;
-    document.getElementById("temp").innerText = weatherData[index].temp;
-    document.getElementById("humidity").innerText = "Humidity: " + weatherData[index].humidity;
-    document.getElementById("condition").innerText = weatherData[index].condition;
+document.getElementById("city").innerHTML =
+weatherData[index].city;
+
+document.getElementById("temp").innerHTML =
+weatherData[index].temp;
+
+document.getElementById("humidity").innerHTML =
+"Humidity: " + weatherData[index].humidity;
+
+document.getElementById("condition").innerHTML =
+weatherData[index].condition;
+
+document.getElementById("tip").innerHTML =
+weatherData[index].tip;
+
+document.body.style.background =
+backgrounds[index];
+}
+
+function nextCity(){
+
+index++;
+
+if(index >= weatherData.length){
+index = 0;
+}
+
+updateWeather();
+}
+
+function previousCity(){
+
+index--;
+
+if(index < 0){
+index = weatherData.length - 1;
+}
+
+updateWeather();
 }
 
 </script>
